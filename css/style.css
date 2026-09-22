@@ -1,0 +1,280 @@
+  /* Макет для согласования. Не рабочий сайт: ссылки, кнопки и форма не функциональны. */
+  :root {
+    --ral5005: #005387;      /* RAL 5005 Signal Blue */
+    --ral5005-dark: #003A5F; /* тот же оттенок, темнее */
+    --ral5005-tint: #EBF1F5; /* 8 % RAL 5005 на белом */
+    --ral5005-line: #CCDDE7; /* 20 % RAL 5005 на белом */
+    --text: #1C2530;
+    --text-2: #5B6670;
+    --border: #DDE3E8;
+    --field: #F4F6F8;
+    --white: #FFFFFF;
+    --font: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+    --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); color: var(--text); background: var(--white); font-size: 17px; line-height: 1.55; }
+  img { display: block; max-width: 100%; }
+  .nw { white-space: nowrap; }
+  ul { list-style: none; }
+  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-inline: 20px; }
+
+  /* Нумерация и заголовки разделов */
+  .label { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ral5005); margin-bottom: 12px; }
+  .h2 { font-size: 40px; line-height: 1.15; font-weight: 600; letter-spacing: -.01em; }
+  section { scroll-margin-top: 80px; }
+
+  /* 0. Верхняя строка и шапка */
+  .topbar { background: var(--ral5005-dark); color: rgba(255,255,255,.85); font-size: 13px; }
+  .topbar .wrap { height: 40px; display: flex; align-items: center; justify-content: flex-end; gap: 24px; }
+  .topbar .right { display: flex; gap: 28px; }
+  .header { background: var(--white); border-bottom: 1px solid var(--border); }
+  .header .wrap { height: 80px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-size: 20px; font-weight: 700; color: var(--ral5005); letter-spacing: .01em; white-space: nowrap; }
+  .nav { display: flex; gap: 12px; font-size: 14px; font-weight: 500; }
+  .nav span { color: var(--text); white-space: nowrap; }
+  .burger { display: none; width: 28px; }
+  .burger i { display: block; height: 2px; background: var(--ral5005); margin: 6px 0; }
+
+  /* 1. Первый экран */
+  /* Первый экран: фотография заказчика фоном на всю ширину.
+     Поверх — градиент: слева плотный RAL 5005 (под белый текст), справа светлая вуаль (под карточки). */
+  .hero { position: relative; background-color: var(--ral5005); background-image: url("../img/hero-bg.jpg"); background-size: cover; background-position: center 42%; background-repeat: no-repeat; border-bottom: 1px solid var(--border); }
+  .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,
+      rgba(0,83,135,.94) 0%, rgba(0,83,135,.90) 32%, rgba(0,83,135,.60) 45%,
+      rgba(235,241,245,.66) 54%, rgba(255,255,255,.84) 64%, rgba(255,255,255,.88) 100%); }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .hero-text { color: var(--white); padding: 96px 60px 96px 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font-size: 44px; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; margin-bottom: 28px; }
+  .hero p { font-size: 19px; line-height: 1.6; color: rgba(255,255,255,.88); margin-bottom: 40px; }
+  .buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 32px; border-radius: 4px; font-size: 16px; font-weight: 600; }
+  .btn-white { background: var(--white); color: var(--ral5005); }
+  .btn-outline { border: 1.5px solid rgba(255,255,255,.7); color: var(--white); }
+  .btn-blue { background: var(--ral5005); color: var(--white); }
+  .hero-photos { padding: 48px 0 48px 60px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px 20px; align-items: end; align-content: center; }
+  .hero-photo { grid-column: span 2; }
+  .hero-photo:nth-child(4) { grid-column: 2 / span 2; }
+  .hero-photo:nth-child(5) { grid-column: 4 / span 2; }
+  .hero-photo .pic { height: 170px; display: flex; align-items: flex-end; justify-content: center; }
+  .hero-photo .pic img { max-height: 100%; object-fit: contain; }
+  .hero-photo .pic-parts { overflow: hidden; }
+  .hero-photo .pic-parts img { flex: none; width: 130%; max-width: none; max-height: none; margin-bottom: -6%; }
+  .hero-photo .cap { margin-top: 20px; padding-top: 12px; border-top: 2px solid var(--ral5005); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text); line-height: 1.35; min-height: 50px; }
+
+  /* 2. О компании */
+  .about { padding-block: 110px; }
+  .about-top { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; padding-bottom: 56px; border-bottom: 1px solid var(--border); }
+  .about-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 56px; align-items: start; }
+  .lead { font-size: 23px; line-height: 1.5; font-weight: 500; color: var(--ral5005); border-left: 3px solid var(--ral5005); padding-left: 28px; align-self: start; }
+  .note { margin-top: 28px; background: var(--ral5005-tint); border: 1px solid var(--ral5005-line); border-radius: 4px; padding: 22px 28px; font-size: 16px; font-weight: 500; }
+
+  /* 3. Области применения */
+  /* Нижний отступ меньше верхнего: колонки отраслей заканчиваются на разной высоте,
+     и при обычных 110px переход к следующему разделу читался как лишнее пустое поле.
+     70px возвращают его в общий ритм сайта (переходы между разделами 217–252px).
+     Только для компьютера — на планшете и телефоне низ колонок ровный, там прежние отступы. */
+  .areas { background: var(--ral5005-tint); padding-block: 110px 70px; }
+  .areas-top { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; padding-bottom: 40px; border-bottom: 1px solid var(--ral5005-line); }
+  .areas .intro { color: var(--text-2); }
+  /* Отрасли — три независимые вертикальные колонки (как на планшете, только три).
+     Каждый следующий блок поднимается вплотную под предыдущий в своей колонке и не зависит
+     от высоты соседей, поэтому пустот между отраслями нет и раздел кончается естественно.
+     Порядок отраслей — строго по документу, читается сверху вниз по колонке.
+     Отрасль с фотографией отличается от текстовой только иллюстрацией под заголовком. */
+  .areas .cols { display: block; columns: 3; column-gap: 48px; padding-top: 34px; }
+  .areas .cols > .area:last-child { margin-bottom: 0; }
+  /* Линия и отступ снизу: разделитель закрывает отрасль, следом идёт воздух перед следующей.
+     break-inside: avoid — чтобы отрасль не разрывалась между колонками. */
+  .area { break-inside: avoid; padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--ral5005-line); }
+  .area h3 { font-size: 17px; line-height: 1.35; font-weight: 600; margin-bottom: 8px; }
+  /* Фото — вторичная иллюстрация без подложки и рамки: снимок лежит прямо на фоне раздела.
+     Ограничены только предельная ширина и высота, размеры свободные — поэтому каждый кадр
+     сохраняет свои пропорции, показывается целиком и не кадрируется. */
+  .area-photo { display: block; width: auto; height: auto; max-width: 205px; max-height: 145px; margin: 0 0 12px; }
+
+  .area li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.5; color: var(--text); margin-top: 6px; }
+  .area li::before { content: "–"; position: absolute; left: 0; top: 0; color: var(--text-2); }
+
+  /* 4. Описание фильтров */
+  .products { padding-block: 110px; }
+  .category { margin-top: 64px; }
+  .category-head { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+  .category-head h3 { font-size: 26px; font-weight: 600; white-space: nowrap; }
+  .category-head::after { content: ""; flex: 1; height: 1px; background: var(--ral5005-line); }
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
+  .card .pic { height: 230px; padding: 18px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
+  .card .pic img { max-height: 100%; object-fit: contain; }
+  .card .info { padding: 18px 18px 22px; }
+  .card .code { font-family: var(--mono); font-size: 17px; font-weight: 500; color: var(--ral5005); margin-bottom: 8px; }
+  .card .desc { font-size: 14px; line-height: 1.45; color: var(--text-2); }
+  .category.todo .category-head h3 { color: var(--text-2); }
+  .category.todo .category-head::after { height: 0; background: none; border-top: 1px dashed #9AA5AE; }
+  .card.todo { border: 1px dashed #9AA5AE; }
+  .card.todo .pic { border-bottom: 1px dashed #9AA5AE; }
+  .card .file { font-size: 13px; color: var(--text-2); }
+
+  /* 5. Запчасти — карточки фильтроэлементов (фото → название → текст), подраздел «Дополнительное оборудование» */
+  .parts { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-block: 110px 80px; }
+  .parts .parts-lead { max-width: 980px; margin-top: 36px; font-size: 19px; line-height: 1.6; }
+  /* 3 карточки в ряд: сетка из 6 колонок, карточка занимает 2 — ширина та же, что при repeat(3, 1fr).
+     Если в последнем ряду 2 карточки, они сдвигаются на половину карточки и стоят симметрично по центру. */
+  .el-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 56px 40px; margin-top: 48px; align-items: start; }
+  .el-card { grid-column: span 2; }
+  .el-card:nth-child(3n+1):nth-last-child(2) { grid-column: 2 / span 2; }
+  /* Фото каждой карточки — свой фрагмент общей полосы фильтроэлементы-ряд.jpg (полоса 2255×450):
+     --x, --y — левый верхний угол фрагмента, --w, --h — его размер в пикселях полосы.
+     Фрагмент вписывается в рамку 4:3 по высоте, пропорции снимка не искажаются. */
+  /* На компьютере зона фото 3:2 (на ~11 % ниже, чем 4:3), у всех карточек ряда одинаковая высота */
+  .el-card-pic { aspect-ratio: 3 / 2; display: flex; justify-content: center; background: #fff; }
+  .el-card-crop { position: relative; height: 100%; aspect-ratio: var(--w) / var(--h); overflow: hidden; }
+  .el-card-crop img { position: absolute; top: calc(var(--y) / var(--h) * -100%); left: calc(var(--x) / var(--w) * -100%); height: calc(450 / var(--h) * 100%); width: auto; max-width: none; }
+  .el-card h4 { font-size: 17px; line-height: 1.35; font-weight: 600; margin-top: 16px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--ral5005-line); }
+  /* Заголовок всегда занимает высоту двух строк — линии под заголовками одного ряда на одном уровне */
+  .el-card h4 { min-height: calc(2 * 1.35em + 11px); }
+  .el-card p { font-size: 15px; line-height: 1.5; color: var(--text); }
+  .parts .parts-text { max-width: 980px; margin-top: 40px; font-size: 19px; line-height: 1.6; }
+  .parts .sub { margin-top: 72px; }
+  .parts .sub h3 { font-size: 26px; font-weight: 600; }
+
+  /* Дополнительное оборудование: четыре позиции каталога, у каждой своя фотография и свой текст.
+     Снимки вырезаны из разворота стр. 14-15 вместе с врезками и подписями типов. */
+  .equip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px 40px; margin-top: 32px; align-items: start; }
+  .equip-photo { display: block; width: 100%; max-width: 360px; height: auto; margin-bottom: 16px; border-radius: 3px; }
+  .equip-item h4 { font-size: 19px; line-height: 1.35; font-weight: 600; padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px solid var(--ral5005-line); }
+  .equip-item p { font-size: 15px; line-height: 1.55; color: var(--text); }
+  .equip-item p + p { margin-top: 10px; }
+  .equip-lead { font-weight: 600; color: var(--ral5005); margin-bottom: 10px; }
+  /* «Исполнения» у индикатора 4.46 — вложенный список, как в каталоге */
+  .equip-item h5 { font-size: 15px; font-weight: 600; margin-top: 16px; }
+  .equip-list { list-style: none; margin-top: 6px; }
+  .equip-list > li { font-size: 15px; line-height: 1.5; margin-top: 8px; font-weight: 600; }
+  .equip-list ul { margin: 4px 0 0; }
+  .equip-list ul li { position: relative; padding-left: 16px; font-weight: 400; color: var(--text); margin-top: 5px; }
+  .equip-list ul li::before { content: "•"; position: absolute; left: 2px; top: 0; color: var(--text-2); }
+  /* Характеристики: компактная таблица в две колонки, помещается без прокрутки */
+  .equip-spec { border-collapse: collapse; width: 100%; margin-top: 18px; font-size: 13px; line-height: 1.45; }
+  .equip-spec th, .equip-spec td { text-align: left; vertical-align: top; padding: 7px 0; border-bottom: 1px solid var(--ral5005-line); }
+  .equip-spec th { width: 46%; font-weight: 600; color: var(--text); padding-right: 16px; }
+  .equip-spec td { color: var(--text-2); }
+
+  /* 6. Наши заказчики */
+  .clients { background: var(--ral5005); color: var(--white); padding-block: 110px; }
+  .clients .label { color: rgba(255,255,255,.7); }
+  .clients p { margin-top: 32px; max-width: 980px; font-size: 28px; line-height: 1.45; font-weight: 400; }
+
+  /* 7. Контакты и форма (форма нарисована, не работает) */
+  .contacts { background: var(--ral5005-tint); padding-block: 110px; }
+  .contacts .grid { display: grid; grid-template-columns: 5fr 7fr; gap: 60px; align-items: start; }
+  .contact-list { margin-top: 40px; }
+  .contact-list .company { font-size: 19px; font-weight: 600; margin-bottom: 16px; }
+  .contact-list p { margin-bottom: 14px; }
+  .contact-list .k { color: var(--text-2); }
+  .form { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 44px; }
+  .form h3 { font-size: 30px; font-weight: 600; margin-bottom: 28px; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .field .name { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .field .box { height: 52px; background: var(--field); border: 1px solid var(--border); border-radius: 4px; }
+  .field.wide { grid-column: 1 / -1; }
+  .field.wide .box { height: 128px; }
+  .form .btn { width: 100%; margin-top: 24px; }
+
+  /* 8. Подвал */
+  .footer { background: var(--ral5005-dark); color: rgba(255,255,255,.75); font-size: 14px; }
+  .footer .wrap { padding-block: 44px; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+  .footer .brand { color: var(--white); font-size: 18px; }
+  .footer .rows { text-align: right; line-height: 1.8; }
+
+  /* Планшеты и узкие ноутбуки: горизонтальное меню перестаёт помещаться — прячем его в бургер.
+     Компьютерная версия (от 1200 px, на которую рассчитан макет) не меняется. */
+  @media (max-width: 1199px) {
+    .nav { display: none; }
+    .burger { display: block; }
+  }
+
+  /* Ниже 1100 px первый экран в две колонки уже не работает:
+     колонка с фото сужается, и подписи под фото вылезают за экран. Разворачиваем в одну колонку. */
+  @media (max-width: 1100px) {
+    /* колонки встают друг под друга, поэтому вместо бокового градиента —
+       своя полупрозрачная подложка у каждой части, фотография просвечивает сквозь них */
+    .hero::before { display: none; }
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-inline: 0; }
+    .hero-text { background: rgba(0,83,135,.86); padding: 64px 20px; }
+    .hero-photos { background: rgba(255,255,255,.88); padding: 40px 20px; gap: 28px 16px; }
+
+    /* отрасли: на планшете три колонки становятся слишком узкими */
+    /* планшет: в две колонки модули с фото вдвое выше текстовых и сетка даёт провалы,
+       поэтому здесь два независимых потока — они заполняются без пустот */
+    /* на планшете колонок две и низ у них ровный — нижний отступ раздела остаётся обычным */
+    .areas { padding-bottom: 110px; }
+    .areas .cols { display: block; columns: 2; column-gap: 36px; }
+    .area { break-inside: avoid; }
+    .area-photo { max-width: 185px; max-height: 135px; }
+    /* карточки фильтроэлементов: на планшете две в ряд */
+    .el-cards { grid-template-columns: repeat(2, 1fr); gap: 48px 32px; }
+    /* планшет и телефон — как было до доводки desktop */
+    .el-card-pic { aspect-ratio: 4 / 3; }
+    .el-card h4 { min-height: 0; }
+    .el-card, .el-card:nth-child(3n+1):nth-last-child(2) { grid-column: auto; }
+  }
+
+  /* Мобильная версия (макет 360 px: поле контента 320 px = разрешение 320 в Zero Block) */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .h2 { font-size: 28px; }
+    .topbar .wrap { height: auto; padding-block: 8px; justify-content: flex-start; }
+    .topbar .right { flex-direction: column; gap: 2px; }
+    .header .wrap { height: 64px; }
+    .brand { font-size: 16px; }
+    .burger { width: 26px; }
+    .hero::before { display: none; }
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-inline: 0; }
+    .hero-text { background: rgba(0,83,135,.88); padding: 48px 20px; }
+    .hero h1 { font-size: 26px; margin-bottom: 20px; }
+    .hero p { font-size: 16px; margin-bottom: 28px; }
+    .buttons { flex-direction: column; gap: 12px; }
+    .btn { width: 100%; height: 52px; }
+    .hero-photos { padding: 32px 20px; gap: 24px 12px; }
+    .hero-photo .pic { height: 150px; }
+    .hero-photo .cap { font-size: 10px; letter-spacing: .03em; margin-top: 12px; padding-top: 8px; min-height: 36px; }
+    .about, .areas, .products, .clients, .contacts { padding-block: 64px; }
+    .about-top { grid-template-columns: 1fr; gap: 28px; padding-bottom: 32px; }
+    .about-cols { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+    .lead { font-size: 19px; padding-left: 20px; }
+    .note { padding: 18px 20px; font-size: 15px; }
+    .areas-top { grid-template-columns: 1fr; gap: 20px; padding-bottom: 24px; }
+    .areas .cols { display: block; columns: 1; padding-top: 24px; }
+    .area { padding-bottom: 22px; margin-bottom: 28px; }
+    /* мобильный: поле контента ~320 px — площадка фото заведомо уже экрана, горизонтального скролла нет */
+    .area-photo { max-width: 175px; max-height: 125px; margin: 0 0 12px; }
+    .area h3 { font-size: 16px; }
+    .area li { font-size: 14px; }
+    .category { margin-top: 40px; }
+    .category-head { gap: 12px; margin-bottom: 16px; }
+    .category-head h3 { font-size: 20px; white-space: normal; }
+    .cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card .pic { height: 150px; padding: 12px; }
+    .card .info { padding: 12px 12px 16px; }
+    .card .code { font-size: 14px; }
+    .card .desc { font-size: 13px; }
+    .parts { padding-block: 64px 40px; }
+    .parts .parts-lead { margin-top: 20px; font-size: 16px; }
+    .el-cards { grid-template-columns: 1fr; gap: 40px; margin-top: 32px; }
+    .el-card p { font-size: 14px; }
+    .parts .parts-text { margin-top: 24px; font-size: 16px; }
+    .parts .sub { margin-top: 40px; }
+    .parts .sub h3 { font-size: 20px; }
+    .equip { grid-template-columns: 1fr; gap: 36px; margin-top: 24px; }
+    .equip-item h4 { font-size: 17px; }
+    .equip-item p, .equip-list > li, .equip-item h5 { font-size: 14px; }
+    .equip-spec { font-size: 12px; }
+    .clients p { font-size: 20px; margin-top: 20px; }
+    .contacts .grid { grid-template-columns: 1fr; gap: 32px; }
+    .contact-list { margin-top: 24px; }
+    .form { padding: 24px 20px; }
+    .form h3 { font-size: 24px; margin-bottom: 20px; }
+    .fields { grid-template-columns: 1fr; gap: 16px; }
+    .footer .wrap { flex-direction: column; gap: 16px; padding-block: 32px; }
+    .footer .rows { text-align: left; }
+  }
