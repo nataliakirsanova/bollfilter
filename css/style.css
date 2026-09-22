@@ -1,4 +1,18 @@
   /* Макет для согласования. Не рабочий сайт: ссылки, кнопки и форма не функциональны. */
+  /* Шрифты IBM Plex лежат рядом с сайтом (fonts/), без обращений к Google Fonts.
+     Официальные файлы IBM (github.com/IBM/plex: plex-sans 1.1.0, plex-mono 2.5.0), лицензия SIL OFL 1.1 — fonts/LICENSE.txt.
+     Только используемые начертания: Sans 400/500/600/700 и Mono 500. swap — как было у Google (&display=swap). */
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: normal; font-display: swap;
+    src: url("../fonts/IBMPlexSans-Regular.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 500; font-style: normal; font-display: swap;
+    src: url("../fonts/IBMPlexSans-Medium.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-style: normal; font-display: swap;
+    src: url("../fonts/IBMPlexSans-SemiBold.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 700; font-style: normal; font-display: swap;
+    src: url("../fonts/IBMPlexSans-Bold.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-style: normal; font-display: swap;
+    src: url("../fonts/IBMPlexMono-Medium.woff2") format("woff2"); }
+
   :root {
     --ral5005: #005387;      /* RAL 5005 Signal Blue */
     --ral5005-dark: #003A5F; /* тот же оттенок, темнее */
