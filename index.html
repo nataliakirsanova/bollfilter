@@ -404,17 +404,18 @@
           <p><span class="k">E-mail:</span> <a href="mailto:info@bollfilter.ru">info@bollfilter.ru</a></p>
         </div>
       </div>
-      <div class="form" data-m="Форма (нарисована)">
+      <form class="form" id="contact-form" method="post" novalidate data-m="Форма">
         <h3>Свяжитесь с нами</h3>
         <div class="fields">
-          <div class="field"><div class="name">Имя</div><div class="box"></div></div>
-          <div class="field"><div class="name">Фамилия</div><div class="box"></div></div>
-          <div class="field"><div class="name">Email</div><div class="box"></div></div>
-          <div class="field"><div class="name">Телефон</div><div class="box"></div></div>
-          <div class="field wide"><div class="name">Сообщение</div><div class="box"></div></div>
+          <div class="field"><label class="name" for="f-name">Имя</label><input class="box" id="f-name" name="name" type="text" autocomplete="given-name" maxlength="100" required aria-describedby="f-name-error"><p class="field-error" id="f-name-error" hidden></p></div>
+          <div class="field"><label class="name" for="f-surname">Фамилия</label><input class="box" id="f-surname" name="surname" type="text" autocomplete="family-name" maxlength="100"></div>
+          <div class="field"><label class="name" for="f-email">Email</label><input class="box" id="f-email" name="email" type="email" autocomplete="email" maxlength="254" aria-describedby="f-email-error"><p class="field-error" id="f-email-error" hidden></p></div>
+          <div class="field"><label class="name" for="f-phone">Телефон</label><input class="box" id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" aria-describedby="f-phone-error"><p class="field-error" id="f-phone-error" hidden></p></div>
+          <div class="field wide"><label class="name" for="f-message">Сообщение</label><textarea class="box" id="f-message" name="message" maxlength="2000"></textarea></div>
         </div>
-        <span class="btn btn-blue">Отправить</span>
-      </div>
+        <button type="submit" class="btn btn-blue">Отправить</button>
+        <p class="form-status" role="status" hidden></p>
+      </form>
     </div>
   </div>
 </section>

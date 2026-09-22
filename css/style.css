@@ -188,6 +188,22 @@
   .field.wide { grid-column: 1 / -1; }
   .field.wide .box { height: 128px; }
   .form .btn { width: 100%; margin-top: 24px; }
+  /* Настоящие поля и кнопка в виде нарисованных: браузерные рамки, тени, уголок-растягиватель сброшены.
+     Текст в полях 16 px — иначе iPhone увеличивает страницу при нажатии на поле. */
+  label.name { display: block; }
+  input.box, textarea.box { display: block; width: 100%; margin: 0; padding: 0 16px; font-family: inherit; font-size: 16px;
+    line-height: 1.5; color: var(--text); -webkit-appearance: none; appearance: none; box-shadow: none; outline: none; }
+  textarea.box { padding-block: 14px; resize: none; }
+  .box:focus { border-color: var(--ral5005); box-shadow: 0 0 0 1px var(--ral5005); }
+  button.btn { border: 0; font-family: inherit; line-height: inherit; cursor: pointer; }
+  /* Ошибки (ставит js/main.js): тёмно-красная рамка и подсказка под полем */
+  .field.has-error .box { border-color: #B42318; }
+  .field.has-error .box:focus { box-shadow: 0 0 0 1px #B42318; }
+  .field-error { margin-top: 6px; font-size: 13px; line-height: 1.4; color: #B42318; }
+  /* Сообщение после нажатия «Отправить» — в виде плашки из «О компании» */
+  .form-status { margin-top: 20px; background: var(--ral5005-tint); border: 1px solid var(--ral5005-line); border-radius: 4px;
+    padding: 18px 22px; font-size: 15px; line-height: 1.5; }
+  .form-status a { color: var(--ral5005); font-weight: 600; text-decoration: none; }
 
   /* 8. Подвал */
   .footer { background: var(--ral5005-dark); color: rgba(255,255,255,.75); font-size: 14px; }
