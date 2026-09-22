@@ -58,6 +58,7 @@
   .hero-photo { grid-column: span 2; }
   .hero-photo:nth-child(4) { grid-column: 2 / span 2; }
   .hero-photo:nth-child(5) { grid-column: 4 / span 2; }
+  a.hero-photo { text-decoration: none; color: inherit; }
   .hero-photo .pic { height: 170px; display: flex; align-items: flex-end; justify-content: center; }
   .hero-photo .pic img { max-height: 100%; object-fit: contain; }
   .hero-photo .pic-parts { overflow: hidden; }
@@ -101,6 +102,7 @@
   /* 4. Описание фильтров */
   .products { padding-block: 110px; }
   .category { margin-top: 64px; }
+  .category { scroll-margin-top: 60px; }
   .category-head { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
   .category-head h3 { font-size: 26px; font-weight: 600; white-space: nowrap; }
   .category-head::after { content: ""; flex: 1; height: 1px; background: var(--ral5005-line); }
@@ -254,6 +256,7 @@
     .area h3 { font-size: 16px; }
     .area li { font-size: 14px; }
     .category { margin-top: 40px; }
+    .category { scroll-margin-top: 40px; }
     .category-head { gap: 12px; margin-bottom: 16px; }
     .category-head h3 { font-size: 20px; white-space: normal; }
     .cards { grid-template-columns: 1fr 1fr; gap: 12px; }
