@@ -24,7 +24,7 @@
 <header class="header" data-block="Шапка">
   <div class="wrap">
     <div class="brand" data-m="Название">ООО «БОЛЛФИЛТЕР Руссланд»</div>
-    <nav class="nav" data-m="Меню">
+    <nav class="nav" id="menu" data-m="Меню">
       <a href="#about">О компании</a>
       <a href="#areas">Области применения</a>
       <a href="#products">Типы фильтров</a>
@@ -34,7 +34,7 @@
       <span>Новости</span>
       <a href="#contacts">Контакты</a>
     </nav>
-    <div class="burger" data-m="Кнопка меню (телефон)"><i></i><i></i><i></i></div>
+    <button type="button" class="burger" aria-controls="menu" aria-expanded="false" aria-label="Открыть меню" data-m="Кнопка меню (телефон)"><i></i><i></i><i></i></button>
   </div>
 </header>
 
@@ -431,5 +431,6 @@
   </div>
 </footer>
 
+<script src="js/main.js" defer></script>
 </body>
 </html>

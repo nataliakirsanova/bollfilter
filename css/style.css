@@ -36,6 +36,10 @@
   .nav span, .nav a { color: var(--text); white-space: nowrap; text-decoration: none; }
   .burger { display: none; width: 28px; }
   .burger i { display: block; height: 2px; background: var(--ral5005); margin: 6px 0; }
+  /* Кнопка меню: браузерные рамка и фон сброшены. Поля 7/9 px расширяют зону нажатия до ~44×44,
+     отрицательные поля той же величины оставляют значок на прежнем месте. */
+  button.burger { box-sizing: content-box; background: none; border: 0; font: inherit; color: inherit; cursor: pointer;
+    padding: 7px 9px; margin: -7px -9px; }
 
   /* 1. Первый экран */
   /* Первый экран: фотография заказчика фоном на всю ширину.
@@ -196,6 +200,21 @@
   @media (max-width: 1199px) {
     .nav { display: none; }
     .burger { display: block; }
+
+    /* Мобильное меню (класс menu-open ставит js/main.js): тот же nav — белой панелью под шапкой
+       поверх страницы, страница ниже слегка затемнена, ☰ превращается в ×. */
+    .header { position: relative; }
+    .header.menu-open .nav { display: flex; flex-direction: column; gap: 0; position: absolute; left: 0; right: 0; top: 100%;
+      z-index: 20; background: var(--white); border-bottom: 1px solid var(--border); padding: 4px 20px 12px;
+      box-shadow: 0 16px 32px rgba(28,37,48,.14); font-size: 17px; }
+    .header.menu-open .nav a, .header.menu-open .nav span { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .header.menu-open .nav > :last-child { border-bottom: 0; }
+    .header.menu-open .nav span { color: var(--text-2); }
+    .header.menu-open::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 100vh; z-index: 10;
+      background: rgba(28,37,48,.35); }
+    .header.menu-open .burger i:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .header.menu-open .burger i:nth-child(2) { opacity: 0; }
+    .header.menu-open .burger i:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
   }
 
   /* Ниже 1100 px первый экран в две колонки уже не работает:
@@ -233,6 +252,7 @@
     .header .wrap { height: 64px; }
     .brand { font-size: 16px; }
     .burger { width: 26px; }
+    .header.menu-open .nav { font-size: 16px; }
     .hero::before { display: none; }
     .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-inline: 0; }
     .hero-text { background: rgba(0,83,135,.88); padding: 48px 20px; }
