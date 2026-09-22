@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Макет v1: страница «Новости» — ООО «БОЛЛФИЛТЕР Руссланд»</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/news.css">
+</head>
+<body>
+
+<!-- 0. Шапка и навигация — как на главной; текущий раздел «Новости», остальные пункты ведут на разделы главной -->
+<div class="topbar" data-block="Верхняя строка">
+  <div class="wrap">
+    <span class="right">
+      <span data-m="Телефоны"><a class="nw" href="tel:+78123646180">+7 812 364 6180</a>, <a class="nw" href="tel:+78123646179">+7 812 364 61 79</a></span>
+      <a data-m="E-mail" href="mailto:info@bollfilter.ru">info@bollfilter.ru</a>
+    </span>
+  </div>
+</div>
+<header class="header" data-block="Шапка">
+  <div class="wrap">
+    <div class="brand" data-m="Название">ООО «БОЛЛФИЛТЕР Руссланд»</div>
+    <nav class="nav" id="menu" data-m="Меню">
+      <a href="index.html#about">О компании</a>
+      <a href="index.html#areas">Области применения</a>
+      <a href="index.html#products">Типы фильтров</a>
+      <a href="index.html#parts">Запчасти</a>
+      <a href="index.html#equipment">Допоборудование</a>
+      <a href="index.html#clients">Наши заказчики</a>
+      <span class="active" aria-current="page">Новости</span>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <button type="button" class="burger" aria-controls="menu" aria-expanded="false" aria-label="Открыть меню" data-m="Кнопка меню (телефон)"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- 1. Заголовок страницы -->
+<section class="page-head" data-block="Заголовок страницы">
+  <div class="wrap">
+    <div class="crumbs" data-m="Путь (хлебные крошки)"><a href="index.html">Главная</a><span class="sep">/</span>Новости</div>
+    <h1 data-m="Заголовок">Новости</h1>
+  </div>
+</section>
+
+<!-- 2. Список публикаций — место под будущие реальные новости. Карточки, переключатель страниц
+     и способ добавления новостей отложены до получения материалов и решения заказчика. -->
+<section class="news-list" data-block="Список новостей">
+  <div class="wrap"></div>
+</section>
+
+<!-- 3. Подвал — как на главной -->
+<footer class="footer" data-block="Подвал">
+  <div class="wrap">
+    <div class="brand" data-m="Название">ООО «БОЛЛФИЛТЕР Руссланд»</div>
+    <div class="rows" data-m="Контакты">
+      <div>Санкт-Петербург, Дачный проспект, дом 6, корпус 1, литера А, помещение 10Н</div>
+      <div><a class="nw" href="tel:+78123646180">+7 812 364 6180</a>, <a class="nw" href="tel:+78123646179">+7 812 364 61 79</a></div>
+      <div><a href="mailto:info@bollfilter.ru">info@bollfilter.ru</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
