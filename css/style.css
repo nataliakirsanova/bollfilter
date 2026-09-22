@@ -194,6 +194,7 @@
   .footer .wrap { padding-block: 44px; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
   .footer .brand { color: var(--white); font-size: 18px; }
   .footer .rows { text-align: right; line-height: 1.8; }
+  .contact-list a, .footer .rows a { color: inherit; text-decoration: none; }
 
   /* Планшеты и узкие ноутбуки: горизонтальное меню перестаёт помещаться — прячем его в бургер.
      Компьютерная версия (от 1200 px, на которую рассчитан макет) не меняется. */
