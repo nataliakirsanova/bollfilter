@@ -277,6 +277,7 @@
     .area li { font-size: 14px; }
     .category { margin-top: 40px; }
     .category { scroll-margin-top: 40px; }
+    #equipment { scroll-margin-top: 40px; }
     .category-head { gap: 12px; margin-bottom: 16px; }
     .category-head h3 { font-size: 20px; white-space: normal; }
     .cards { grid-template-columns: 1fr 1fr; gap: 12px; }
