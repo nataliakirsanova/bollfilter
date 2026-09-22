@@ -58,7 +58,7 @@
   /* 1. Первый экран */
   /* Первый экран: фотография заказчика фоном на всю ширину.
      Поверх — градиент: слева плотный RAL 5005 (под белый текст), справа светлая вуаль (под карточки). */
-  .hero { position: relative; background-color: var(--ral5005); background-image: url("../img/hero-bg.jpg"); background-size: cover; background-position: center 42%; background-repeat: no-repeat; border-bottom: 1px solid var(--border); }
+  .hero { position: relative; background-color: var(--ral5005); background-image: url("../img/hero-bg.webp"); background-size: cover; background-position: center 42%; background-repeat: no-repeat; border-bottom: 1px solid var(--border); }
   .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,
       rgba(0,83,135,.94) 0%, rgba(0,83,135,.90) 32%, rgba(0,83,135,.60) 45%,
       rgba(235,241,245,.66) 54%, rgba(255,255,255,.84) 64%, rgba(255,255,255,.88) 100%); }
