@@ -53,6 +53,7 @@
   .btn-white { background: var(--white); color: var(--ral5005); }
   .btn-outline { border: 1.5px solid rgba(255,255,255,.7); color: var(--white); }
   .btn-blue { background: var(--ral5005); color: var(--white); }
+  a.btn { text-decoration: none; }
   .hero-photos { padding: 48px 0 48px 60px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px 20px; align-items: end; align-content: center; }
   .hero-photo { grid-column: span 2; }
   .hero-photo:nth-child(4) { grid-column: 2 / span 2; }
