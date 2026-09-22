@@ -156,6 +156,25 @@
   /* Заголовок всегда занимает высоту двух строк — линии под заголовками одного ряда на одном уровне */
   .el-card h4 { min-height: calc(2 * 1.35em + 11px); }
   .el-card p { font-size: 15px; line-height: 1.5; color: var(--text); }
+  /* Характеристики фильтроэлемента (таблица «Свойства» каталога, стр. 10–11): три основные строки видны сразу,
+     остальные — под «Все характеристики» (нативное раскрытие details/summary, без скрипта). 14 px, колонки 40/60. */
+  .el-props { border-collapse: collapse; width: 100%; margin-top: 16px; font-size: 14px; line-height: 1.45; }
+  .el-props th, .el-props td { text-align: left; vertical-align: top; padding: 7px 0; border-bottom: 1px solid var(--ral5005-line); }
+  .el-props th { width: 40%; font-weight: 600; color: var(--text); padding-right: 16px; }
+  .el-props td { color: var(--text-2); }
+  .el-more { margin-top: 4px; }
+  .el-more summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 10px 0;
+    font-size: 14px; font-weight: 600; color: var(--ral5005); border-bottom: 1px solid var(--ral5005-line); }
+  .el-more summary::-webkit-details-marker { display: none; }
+  .el-more summary::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg); }
+  .el-more[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+  .el-more .el-props { margin-top: 0; }
+  /* Сноска стоит в той же части карточки, что и значение со звёздочкой; вид — как у текста карточки */
+  .el-card .el-note { margin-top: 8px; }
+  /* Значки направления потока — по образцу таблицы каталога: треугольники и скобки */
+  .flow-icon { display: block; width: 46px; height: auto; margin-top: 4px; fill: currentColor; }
+  .flow-icon .br { fill: none; stroke: currentColor; stroke-width: 1.4; }
   .parts .parts-text { max-width: 980px; margin-top: 40px; font-size: 19px; line-height: 1.6; }
   .parts .sub { margin-top: 72px; }
   #equipment { scroll-margin-top: 60px; }
