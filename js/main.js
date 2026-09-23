@@ -123,3 +123,38 @@
     else if (field === fields.consent) clear(fields.consent);
   });
 })();
+
+// Точки под лентой карточек в «Типах фильтров»: показывают, сколько карточек в категории и какая открыта.
+// Разметку точек делает скрипт, поэтому в index.html ничего добавлять не нужно; на компьютере они скрыты
+// стилями, а лента там не прокручивается, поэтому и переключать нечего.
+(function () {
+  var ленты = document.querySelectorAll('.category .cards');
+  if (!ленты.length) return;
+
+  Array.prototype.forEach.call(ленты, function (лента) {
+    var карточки = лента.querySelectorAll('.card');
+    if (карточки.length < 2) return;
+
+    var точки = document.createElement('div');
+    точки.className = 'cards-dots';
+    точки.setAttribute('aria-hidden', 'true');   // для чтения вслух точки не нужны: это дубль прокрутки
+    for (var i = 0; i < карточки.length; i++) точки.appendChild(document.createElement('b'));
+    лента.parentNode.insertBefore(точки, лента.nextSibling);
+
+    var активная = -1;
+    function отметить() {
+      var шаг = карточки[1].offsetLeft - карточки[0].offsetLeft;
+      if (!шаг) return;
+      var н = Math.round(лента.scrollLeft / шаг);
+      if (н < 0) н = 0;
+      if (н > карточки.length - 1) н = карточки.length - 1;
+      if (н === активная) return;
+      if (активная > -1) точки.children[активная].classList.remove('on');
+      точки.children[н].classList.add('on');
+      активная = н;
+    }
+
+    отметить();
+    лента.addEventListener('scroll', отметить, { passive: true });
+  });
+})();

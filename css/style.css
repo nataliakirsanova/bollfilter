@@ -394,16 +394,17 @@
     .category, #equipment { scroll-margin-top: 76px; }
   }
 
-  /* «Типы фильтров» на телефоне: карточки категории листаются пальцем вбок, а не уходят вниз
-     длинным столбиком. Прокручивается только сам ряд — страница вбок не едет (overscroll-behavior).
-     Карточка занимает не всю ширину, поэтому край следующей выглядывает и подсказывает, что ряд листается.
-     Скрипты не нужны: всё делают стили. Компьютерная версия (шире 640 px) не затронута. */
+  /* «Типы фильтров» на телефоне: в категории видна ровно одна карточка целиком, карточки
+     листаются пальцем вбок и фиксируются по одной. Под лентой — точки по числу карточек,
+     активную подсвечивает js/main.js. Точки на компьютере скрыты, лента там не включается.
+     Прокручивается только сам ряд: overscroll-behavior не пускает движение на страницу. */
+  .cards-dots { display: none; }
   @media (max-width: 640px) {
     .category .cards { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
-      scroll-snap-type: x mandatory; padding-bottom: 6px;
-      /* лента идёт от края до края экрана: следующая карточка явно уходит под правый край,
-         а не обрывается внутри колонки. Поля возвращаются отступами, чтобы первая карточка
-         стояла ровно под заголовком. */
-      margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; }
-    .category .card { flex: 0 0 min(72%, 260px); scroll-snap-align: start; }
+      scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .category .cards::-webkit-scrollbar { display: none; }
+    .category .card { flex: 0 0 100%; scroll-snap-align: start; }
+    .cards-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+    .cards-dots b { width: 7px; height: 7px; border-radius: 50%; background: var(--ral5005-line); }
+    .cards-dots b.on { background: var(--ral5005); }
   }
