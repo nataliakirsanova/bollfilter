@@ -378,3 +378,18 @@
   .field.consent input { flex: 0 0 auto; width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--ral5005); cursor: pointer; }
   .field.consent a { color: var(--ral5005); }
   .field.consent.has-error input { outline: 2px solid #B42318; outline-offset: 1px; }
+
+  /* Мобильная навигация. Обе группы правил живут ниже 1200 px — там же, где гамбургер,
+     поэтому компьютерной версии они не касаются.
+     1) Шапка остаётся на экране: иначе после перехода по меню к нему не вернуться без долгой прокрутки.
+     2) Запас прокрутки у якорей выровнен по итогу, а не по запасу: у разделов есть свой отступ сверху,
+        у «Допоборудования» и категорий фильтров его нет — отсюда разные числа. */
+  @media (max-width: 1199px) {
+    .header { position: sticky; top: 0; z-index: 30; }
+    section { scroll-margin-top: 0; }
+    .category, #equipment { scroll-margin-top: 110px; }
+  }
+  @media (max-width: 640px) {
+    section { scroll-margin-top: 12px; }
+    .category, #equipment { scroll-margin-top: 76px; }
+  }
