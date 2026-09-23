@@ -239,3 +239,51 @@
   применить();
   телефон.addEventListener('change', применить);
 })();
+
+// «Запчасти» на телефоне: под кнопку «Подробнее» уезжают описание и характеристики, видимыми
+// остаются фотография, название и кнопка. Новый блок раскрытия не заводится: скрипт переносит
+// уже существующие узлы внутрь того же <details>, который и сейчас прячет дополнительные строки,
+// а на широком экране возвращает их на прежние места — компьютерная версия не меняется.
+// Без работающего скрипта карточка выглядит как до доработки.
+(function () {
+  var карточки = Array.prototype.slice.call(document.querySelectorAll('.el-card'));
+  if (!карточки.length) return;
+  var телефон = window.matchMedia('(max-width: 640px)');
+
+  function убрать(карточка) {
+    var подробнее = карточка.querySelector('.el-more');
+    var название = карточка.querySelector('h4');
+    if (!подробнее || !название) return;
+    var кнопка = подробнее.querySelector('summary');
+    if (!кнопка.dataset.прежняя) кнопка.dataset.прежняя = кнопка.textContent;
+    кнопка.textContent = 'Подробнее';   // на компьютере надпись остаётся прежней
+    var узлы = [], у = название.nextElementSibling;
+    while (у && у !== подробнее) { узлы.push(у); у = у.nextElementSibling; }
+    var за = подробнее.querySelector('summary');
+    узлы.forEach(function (узел) {
+      узел.dataset.перенесён = 'да';
+      за.parentNode.insertBefore(узел, за.nextSibling);
+      за = узел;
+    });
+  }
+
+  function вернуть(карточка) {
+    var подробнее = карточка.querySelector('.el-more');
+    if (!подробнее) return;
+    var кнопка = подробнее.querySelector('summary');
+    if (кнопка.dataset.прежняя) { кнопка.textContent = кнопка.dataset.прежняя; delete кнопка.dataset.прежняя; }
+    Array.prototype.slice.call(подробнее.children).forEach(function (узел) {
+      if (!узел.dataset || !узел.dataset.перенесён) return;
+      delete узел.dataset.перенесён;
+      карточка.insertBefore(узел, подробнее);
+    });
+    подробнее.open = false;
+  }
+
+  function применить() {
+    карточки.forEach(телефон.matches ? убрать : вернуть);
+  }
+
+  применить();
+  телефон.addEventListener('change', применить);
+})();
