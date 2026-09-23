@@ -137,8 +137,20 @@
 
     var точки = document.createElement('div');
     точки.className = 'cards-dots';
-    точки.setAttribute('aria-hidden', 'true');   // для чтения вслух точки не нужны: это дубль прокрутки
-    for (var i = 0; i < карточки.length; i++) точки.appendChild(document.createElement('b'));
+
+    // Каждая точка — кнопка: по нажатию лента плавно переходит к своей карточке и встаёт на неё целиком.
+    // Подпись нужна только для чтения вслух, на экране её не видно.
+    Array.prototype.forEach.call(карточки, function (карточка, номер) {
+      var кнопка = document.createElement('button');
+      кнопка.type = 'button';
+      кнопка.setAttribute('aria-label', 'Фильтр ' + (номер + 1) + ' из ' + карточки.length);
+      кнопка.addEventListener('click', function () {
+        var куда = лента.scrollLeft
+          + карточка.getBoundingClientRect().left - лента.getBoundingClientRect().left;
+        лента.scrollTo({ left: куда, behavior: 'smooth' });
+      });
+      точки.appendChild(кнопка);
+    });
     лента.parentNode.insertBefore(точки, лента.nextSibling);
 
     var активная = -1;
