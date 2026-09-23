@@ -393,3 +393,17 @@
     section { scroll-margin-top: 12px; }
     .category, #equipment { scroll-margin-top: 76px; }
   }
+
+  /* «Типы фильтров» на телефоне: карточки категории листаются пальцем вбок, а не уходят вниз
+     длинным столбиком. Прокручивается только сам ряд — страница вбок не едет (overscroll-behavior).
+     Карточка занимает не всю ширину, поэтому край следующей выглядывает и подсказывает, что ряд листается.
+     Скрипты не нужны: всё делают стили. Компьютерная версия (шире 640 px) не затронута. */
+  @media (max-width: 640px) {
+    .category .cards { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory; padding-bottom: 6px;
+      /* лента идёт от края до края экрана: следующая карточка явно уходит под правый край,
+         а не обрывается внутри колонки. Поля возвращаются отступами, чтобы первая карточка
+         стояла ровно под заголовком. */
+      margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; }
+    .category .card { flex: 0 0 min(72%, 260px); scroll-snap-align: start; }
+  }
