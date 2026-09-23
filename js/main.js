@@ -287,3 +287,43 @@
   применить();
   телефон.addEventListener('change', применить);
 })();
+
+// «Дополнительное оборудование» на телефоне: тот же приём, что в «Запчастях» — постоянно видны
+// фотография, название и «Подробнее», а описание, «Исполнения» и таблица характеристик уезжают
+// под кнопку. Своего блока раскрытия у позиций нет, поэтому скрипт создаёт такой же
+// <details class="el-more">, как в карточках запчастей, и пользуется его готовыми стилями —
+// ничего нового в оформлении не появляется. На широком экране узлы возвращаются на прежние места
+// и блок удаляется, поэтому компьютерная версия остаётся прежней. Без работающего скрипта
+// позиция выглядит как до доработки.
+(function () {
+  var позиции = Array.prototype.slice.call(document.querySelectorAll('.equip-item'));
+  if (!позиции.length) return;
+  var телефон = window.matchMedia('(max-width: 640px)');
+
+  function убрать(позиция) {
+    if (позиция.querySelector('.el-more')) return;
+    var название = позиция.querySelector('h4');
+    if (!название || !название.nextElementSibling) return;
+    var блок = document.createElement('details');
+    блок.className = 'el-more';
+    var кнопка = document.createElement('summary');
+    кнопка.textContent = 'Подробнее';
+    блок.appendChild(кнопка);
+    var узел;
+    while ((узел = название.nextElementSibling)) блок.appendChild(узел);
+    позиция.appendChild(блок);
+  }
+
+  function вернуть(позиция) {
+    var блок = позиция.querySelector('.el-more');
+    if (!блок) return;
+    var узел;
+    while ((узел = блок.children[1])) позиция.appendChild(узел);
+    блок.parentNode.removeChild(блок);
+  }
+
+  function применить() { позиции.forEach(телефон.matches ? убрать : вернуть); }
+
+  применить();
+  телефон.addEventListener('change', применить);
+})();
