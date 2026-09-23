@@ -456,3 +456,12 @@
     .topbar a, .contact-list a, .footer .rows a { display: inline-block; padding-block: 10px; }
     .footer .footer-legal a { display: block; padding-block: 8px; }
   }
+
+  /* Кегль на телефоне: доводим до нашей нормы 13 px там, где это ничего не ломает —
+     таблицы характеристик в «Допоборудовании» и названия полей формы со звёздочкой.
+     Подписи под фотографиями первого экрана остаются 10 px: при 12-13 px слова
+     не помещаются в свою колонку и наезжают друг на друга (замеры — в журнале). */
+  @media (max-width: 640px) {
+    .equip-spec { font-size: 13px; }
+    .field .name { font-size: 13px; }
+  }
