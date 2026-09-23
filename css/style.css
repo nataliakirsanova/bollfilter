@@ -355,3 +355,14 @@
     .footer .wrap { flex-direction: column; gap: 16px; padding-block: 32px; }
     .footer .rows { text-align: left; }
   }
+
+  /* Юридический подвал: знак охраны под названием и ссылки на документы.
+     Контакты в подвале нарочно без подчёркивания — юридические ссылки подчёркиваем, чтобы их было видно как ссылки. */
+  .footer .footer-copy { margin-top: 8px; }
+  .footer .footer-legal a { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Телефон: каждая юридическая ссылка с новой строки, разделитель не нужен */
+  @media (max-width: 640px) {
+    .footer .footer-legal a { display: block; }
+    .footer .footer-legal .sep { display: none; }
+  }
