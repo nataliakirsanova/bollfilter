@@ -366,3 +366,15 @@
     .footer .footer-legal a { display: block; }
     .footer .footer-legal .sep { display: none; }
   }
+
+  /* Обязательность полей: синяя звёздочка (красный на форме означает ошибку), пояснение и подсказка к паре контактов */
+  .req { color: var(--ral5005); }
+  .form-legend { margin-top: -16px; margin-bottom: 20px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
+  .field-hint { grid-column: 1 / -1; margin-top: -6px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
+
+  /* Согласие на обработку данных: весь текст — подпись к галочке, поэтому нажатие по словам ставит и снимает её */
+  .field.consent { margin-top: 24px; }
+  .field.consent label { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; cursor: pointer; }
+  .field.consent input { flex: 0 0 auto; width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--ral5005); cursor: pointer; }
+  .field.consent a { color: var(--ral5005); }
+  .field.consent.has-error input { outline: 2px solid #B42318; outline-offset: 1px; }

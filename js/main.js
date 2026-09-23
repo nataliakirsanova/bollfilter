@@ -41,10 +41,13 @@
   var form = document.getElementById('contact-form');
   if (!form) return;
   var status = form.querySelector('.form-status');
+  // Серая подсказка под парой контактов: прячется, пока показано красное сообщение про тот же контакт
+  var contactHint = form.querySelector('.field-hint');
   var fields = {
     name: form.elements.name,
     email: form.elements.email,
-    phone: form.elements.phone
+    phone: form.elements.phone,
+    consent: form.elements.consent
   };
 
   // Текст про e-mail или телефон — дословно из юридического пакета («Готовые тексты интерфейса»)
@@ -52,7 +55,8 @@
     name: 'Укажите имя.',
     contact: 'Укажите e-mail или телефон, по которому можно ответить на обращение.',
     email: 'Проверьте адрес e-mail.',
-    phone: 'Проверьте номер телефона: цифры, пробелы и знаки + ( ) -.'
+    phone: 'Проверьте номер телефона: цифры, пробелы и знаки + ( ) -.',
+    consent: 'Для отправки формы подтвердите согласие на обработку персональных данных.'
   };
   var TEST_MODE = '<strong>Форма пока работает в тестовом режиме — сообщение не отправлено.</strong> ' +
     'Чтобы связаться с нами, позвоните по телефону <a class="nw" href="tel:+78123646180">+7 812 364 6180</a> ' +
@@ -78,7 +82,8 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     status.hidden = true;
-    clear(fields.name); clear(fields.email); clear(fields.phone);
+    clear(fields.name); clear(fields.email); clear(fields.phone); clear(fields.consent);
+    if (contactHint) contactHint.hidden = false;
 
     var name = fields.name.value.trim();
     var email = fields.email.value.trim();
@@ -88,6 +93,7 @@
     if (!name) { mark(fields.name, MESSAGES.name); bad.push(fields.name); }
     if (!email && !phone) {
       mark(fields.email, MESSAGES.contact); mark(fields.phone, '');
+      if (contactHint) contactHint.hidden = true;
       bad.push(fields.email);
     } else {
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { mark(fields.email, MESSAGES.email); bad.push(fields.email); }
@@ -95,6 +101,9 @@
         mark(fields.phone, MESSAGES.phone); bad.push(fields.phone);
       }
     }
+
+    // Согласие проверяется последним: курсор встаёт на первую незаполненную вещь сверху вниз
+    if (!fields.consent.checked) { mark(fields.consent, MESSAGES.consent); bad.push(fields.consent); }
 
     if (bad.length) { bad[0].focus(); return; }
 
@@ -106,7 +115,11 @@
   // Начал исправлять поле — подсказка у него исчезает (e-mail и телефон связаны: снимаем обе)
   form.addEventListener('input', function (event) {
     var field = event.target;
-    if (field === fields.email || field === fields.phone) { clear(fields.email); clear(fields.phone); }
+    if (field === fields.email || field === fields.phone) {
+      clear(fields.email); clear(fields.phone);
+      if (contactHint) contactHint.hidden = false;
+    }
     else if (field === fields.name) clear(fields.name);
+    else if (field === fields.consent) clear(fields.consent);
   });
 })();
