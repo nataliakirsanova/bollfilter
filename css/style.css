@@ -414,3 +414,24 @@
     .cards-dots button.on::before { background: var(--ral5005); transform: scale(1.3); }
     .cards-dots button:focus-visible::before { outline: 2px solid var(--ral5005); outline-offset: 3px; }
   }
+
+  /* «Области применения» на телефоне: отрасли раскрываются по одной. В строке — название и стрелка
+     справа, внутри — фотография и пункты. Стрелка та же, что у «Все характеристики» в «Запчастях».
+     Классы ставит js/main.js и только ниже 640 px: без скрипта раздел выглядит как прежде,
+     компьютерная версия не затронута. */
+  @media (max-width: 640px) {
+    /* Браузер сам пытается удержать содержимое при изменении высоты выше по странице и спорит
+       с нашей поправкой — отключаем это здесь, придерживает строку скрипт. */
+    .areas .cols { overflow-anchor: none; }
+    .area.fold, .area.open { padding-bottom: 12px; margin-bottom: 14px; }
+    .area.fold > *:not(h3) { display: none; }
+    .area.fold > h3 { margin-bottom: 0; }
+    .area-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      width: 100%; padding: 10px 0; margin: 0; border: 0; background: none; font: inherit;
+      color: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .area-head::after { content: ""; flex: 0 0 auto; width: 7px; height: 7px;
+      border-right: 2px solid var(--ral5005); border-bottom: 2px solid var(--ral5005);
+      transform: translateY(-2px) rotate(45deg); transition: transform .15s; }
+    .area.open .area-head::after { transform: translateY(2px) rotate(-135deg); }
+    .area-head:focus-visible { outline: 2px solid var(--ral5005); outline-offset: 2px; }
+  }

@@ -170,3 +170,72 @@
     лента.addEventListener('scroll', отметить, { passive: true });
   });
 })();
+
+// «Области применения» на телефоне: тринадцать отраслей — складной список, открыта всегда одна.
+// Кнопки-строки скрипт создаёт только на узком экране и убирает обратно на широком, поэтому
+// компьютерная версия остаётся нетронутой. Если скрипт не отработает, все отрасли просто
+// останутся раскрытыми — как было до этой доработки.
+(function () {
+  var отрасли = Array.prototype.slice.call(document.querySelectorAll('.areas .area'));
+  if (!отрасли.length) return;
+  var телефон = window.matchMedia('(max-width: 640px)');
+
+  function свернуть(о) {
+    о.classList.add('fold');
+    о.classList.remove('open');
+    var к = о.querySelector('.area-head');
+    if (к) к.setAttribute('aria-expanded', 'false');
+  }
+
+  function раскрыть(о) {
+    о.classList.remove('fold');
+    о.classList.add('open');
+    var к = о.querySelector('.area-head');
+    if (к) к.setAttribute('aria-expanded', 'true');
+  }
+
+  // Закрывая отрасль выше по странице, мы убираем её высоту — и то, по чему только что нажали,
+  // уехало бы вверх из-под пальца. Поэтому запоминаем положение строки и возвращаем его на место.
+  function переключить(о) {
+    var было = о.getBoundingClientRect().top;
+    if (о.classList.contains('open')) {
+      свернуть(о);
+    } else {
+      отрасли.forEach(свернуть);
+      раскрыть(о);
+    }
+    window.scrollBy(0, о.getBoundingClientRect().top - было);
+  }
+
+  function собрать() {
+    отрасли.forEach(function (о, номер) {
+      var h3 = о.querySelector('h3');
+      if (!h3 || о.querySelector('.area-head')) return;
+      var кнопка = document.createElement('button');
+      кнопка.type = 'button';
+      кнопка.className = 'area-head';
+      while (h3.firstChild) кнопка.appendChild(h3.firstChild);
+      h3.appendChild(кнопка);
+      кнопка.addEventListener('click', function () { переключить(о); });
+    });
+    отрасли.forEach(function (о, номер) { (номер === 0 ? раскрыть : свернуть)(о); });
+  }
+
+  function разобрать() {
+    отрасли.forEach(function (о) {
+      var к = о.querySelector('.area-head');
+      if (к) {
+        var h3 = к.parentNode;
+        while (к.firstChild) h3.insertBefore(к.firstChild, к);
+        h3.removeChild(к);
+      }
+      о.classList.remove('fold');
+      о.classList.remove('open');
+    });
+  }
+
+  function применить() { телефон.matches ? собрать() : разобрать(); }
+
+  применить();
+  телефон.addEventListener('change', применить);
+})();
