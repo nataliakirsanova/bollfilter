@@ -371,6 +371,10 @@
   .req { color: var(--ral5005); }
   .form-legend { margin-top: -16px; margin-bottom: 20px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
   .field-hint { grid-column: 1 / -1; margin-top: -6px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
+  /* Подсказка к «Сообщению» — текст из юридического пакета */
+  .field-note { margin-top: 6px; font-size: 13px; line-height: 1.4; color: var(--text-2); }
+  /* Поле-ловушка для ботов: человек его не видит и не попадает в него клавишей Tab */
+  .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
   /* Согласие на обработку данных: весь текст — подпись к галочке, поэтому нажатие по словам ставит и снимает её */
   .field.consent { margin-top: 24px; }

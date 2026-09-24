@@ -35,20 +35,29 @@
   });
 })();
 
-// Форма «Свяжитесь с нами»: проверка полей в браузере. Серверной отправки пока нет — данные никуда не уходят,
-// после успешной проверки показывается честное сообщение тестового режима. Поля не очищаются.
+// Форма «Свяжитесь с нами»: проверка полей в браузере, затем отправка на send.php.
+// Отправка идёт только на https://bollfilter.ru (и на любом адресе с ?form-test=1 — для наших проверок).
+// На остальных адресах данные никуда не уходят — показывается сообщение тестового режима.
+// Главный выключатель — на сервере (private/form-mode.txt): пока там не live, send.php ничего не принимает,
+// а посетитель видит то же сообщение тестового режима.
 (function () {
   var form = document.getElementById('contact-form');
   if (!form) return;
   var status = form.querySelector('.form-status');
+  var button = form.querySelector('button[type=submit]');
   // Серая подсказка под парой контактов: прячется, пока показано красное сообщение про тот же контакт
   var contactHint = form.querySelector('.field-hint');
   var fields = {
     name: form.elements.name,
     email: form.elements.email,
     phone: form.elements.phone,
+    message: form.elements.message,
     consent: form.elements.consent
   };
+  var открыта = Date.now();   // время заполнения уходит на сервер: слишком быстро — бот
+  var отправлять = (location.protocol === 'https:' && location.hostname === 'bollfilter.ru') ||
+    /[?&]form-test=1(&|$)/.test(location.search);
+  var идёт = false;
 
   // Текст про e-mail или телефон — дословно из юридического пакета («Готовые тексты интерфейса»)
   var MESSAGES = {
@@ -61,6 +70,17 @@
   var TEST_MODE = '<strong>Форма пока работает в тестовом режиме — сообщение не отправлено.</strong> ' +
     'Чтобы связаться с нами, позвоните по телефону <a class="nw" href="tel:+78123646180">+7(812) 364-61-80</a> ' +
     'или напишите на <a href="mailto:info@bollfilter.ru">info@bollfilter.ru</a>.';
+  // Успех — дословно из юридического пакета; сбой — текст, утверждённый владельцем 2026-09-24
+  var SENT = 'Спасибо. Ваше обращение отправлено. Мы свяжемся с вами по указанным контактам.';
+  var FAILED = 'Не удалось отправить сообщение. Позвоните по телефону ' +
+    '<a class="nw" href="tel:+78123646180">+7(812) 364-61-80</a> или напишите на ' +
+    '<a href="mailto:info@bollfilter.ru">info@bollfilter.ru</a>.';
+
+  function показать(html) {
+    status.innerHTML = html;
+    status.hidden = false;
+    status.scrollIntoView({ block: 'nearest' });
+  }
 
   // Отметить поле ошибкой; text — подсказка под полем (пустая строка — только красная рамка)
   function mark(field, text) {
@@ -81,8 +101,9 @@
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
+    if (идёт) return;
     status.hidden = true;
-    clear(fields.name); clear(fields.email); clear(fields.phone); clear(fields.consent);
+    clear(fields.name); clear(fields.email); clear(fields.phone); clear(fields.message); clear(fields.consent);
     if (contactHint) contactHint.hidden = false;
 
     var name = fields.name.value.trim();
@@ -107,10 +128,56 @@
 
     if (bad.length) { bad[0].focus(); return; }
 
-    status.innerHTML = TEST_MODE;
-    status.hidden = false;
-    status.scrollIntoView({ block: 'nearest' });
+    if (!отправлять) { показать(TEST_MODE); return; }
+    отправить();
   });
+
+  // POST на send.php: данные — только в теле запроса, в адресную строку не попадают
+  function отправить() {
+    var data = new FormData(form);
+    data.append('t', String(Date.now() - открыта));
+    идёт = true;
+    button.disabled = true;
+    form.setAttribute('aria-busy', 'true');
+
+    fetch('send.php', {
+      method: 'POST',
+      body: data,
+      credentials: 'same-origin',
+      headers: { 'X-Requested-With': 'fetch', 'Accept': 'application/json' }
+    })
+      .then(function (r) {
+        return r.json().catch(function () { return { ok: false, code: 'error' }; });
+      })
+      .then(function (answer) {
+        if (answer.ok) { form.reset(); показать(SENT); return; }
+        if (answer.code === 'closed') { показать(TEST_MODE); return; }
+        if (answer.code === 'invalid' && answer.errors) { отметитьОшибки(answer.errors); return; }
+        показать(FAILED);
+      })
+      .catch(function () { показать(FAILED); })
+      .then(function () {
+        идёт = false;
+        button.disabled = false;
+        form.removeAttribute('aria-busy');
+      });
+  }
+
+  // Ошибки, найденные сервером, — тем же видом, что и ошибки браузера
+  function отметитьОшибки(errors) {
+    var bad = [];
+    ['name', 'email', 'phone', 'message', 'consent'].forEach(function (k) {
+      if (!errors[k] || !fields[k]) return;
+      mark(fields[k], errors[k]);
+      bad.push(fields[k]);
+    });
+    if (errors.email === MESSAGES.contact) {
+      mark(fields.phone, '');
+      if (contactHint) contactHint.hidden = true;
+    }
+    if (bad.length) bad[0].focus();
+    else показать(FAILED);
+  }
 
   // Начал исправлять поле — подсказка у него исчезает (e-mail и телефон связаны: снимаем обе)
   form.addEventListener('input', function (event) {
@@ -120,6 +187,7 @@
       if (contactHint) contactHint.hidden = false;
     }
     else if (field === fields.name) clear(fields.name);
+    else if (field === fields.message) clear(fields.message);
     else if (field === fields.consent) clear(fields.consent);
   });
 })();
