@@ -14,6 +14,9 @@
   .legal { padding-block: 64px 110px; }
   /* Ширина колонки под чтение длинного текста: строка примерно на 90 знаков */
   .legal-text { max-width: 820px; }
+  /* Длинные адреса в тексте (например, ссылки на условия Яндекса в Политике cookie) на узком телефоне
+     переносятся по месту, а не уводят страницу вбок. Там, где строка и так помещается, ничего не меняется. */
+  .legal-text { overflow-wrap: break-word; }
 
   /* Строка версии и даты — над текстом, отделена линией */
   .legal-meta { font-size: 15px; color: var(--text-2); padding-bottom: 20px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }

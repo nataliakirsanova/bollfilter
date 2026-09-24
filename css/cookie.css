@@ -1,0 +1,66 @@
+  /* Cookie-баннер, окно «Настройки cookie» и сообщение об отзыве (js/cookie.js).
+     Размеры и цвета — из уже принятых элементов сайта; новых величин по возможности не вводится.
+     «Принять аналитику» и «Отклонить» оформлены одинаково: отказ не прячется и не выглядит второстепенным. */
+
+  .cookie-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--white);
+    border-top: 1px solid var(--border); box-shadow: 0 -8px 24px rgba(0, 40, 70, .10); }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner .wrap { display: flex; align-items: center; gap: 40px; padding-block: 22px; }
+  .cookie-body { flex: 1; min-width: 0; }
+  .cookie-text { font-size: 15px; line-height: 1.55; color: var(--text); }
+  .cookie-links { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--text-2); }
+  .cookie-links a { color: var(--ral5005); text-decoration: underline; text-underline-offset: 3px; }
+  .cookie-links .sep { margin-inline: 6px; }
+
+  .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+  .cookie-actions .btn { height: 48px; padding: 0 24px; font-size: 15px; white-space: nowrap; }
+  .cookie-btn-line { background: var(--white); color: var(--ral5005); border: 1.5px solid var(--ral5005); }
+  button.btn.cookie-btn-line { border: 1.5px solid var(--ral5005); }
+  .cookie-actions .btn:focus-visible, .cookie-toast button:focus-visible { outline: 3px solid var(--ral5005-line); outline-offset: 2px; }
+
+  /* Окно настроек — стандартный диалог браузера: держит фокус внутри, закрывается клавишей Esc */
+  /* margin: auto — центрирование окна; общий сброс отступов сайта его обнуляет */
+  .cookie-dialog { margin: auto; border: 0; border-radius: 4px; padding: 0; width: min(560px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px); color: var(--text); background: var(--white); box-shadow: 0 16px 48px rgba(0, 40, 70, .25); }
+  .cookie-dialog::backdrop { background: rgba(0, 30, 50, .45); }
+  .cookie-dialog form { padding: 32px 32px 28px; }
+  .cookie-dialog h2 { font-size: 26px; line-height: 1.25; font-weight: 600; margin-bottom: 20px; }
+  .cookie-opt { display: flex; align-items: flex-start; gap: 12px; padding-block: 14px; border-top: 1px solid var(--ral5005-line); }
+  .cookie-opt:last-of-type { border-bottom: 1px solid var(--ral5005-line); }
+  .cookie-opt input { flex-shrink: 0; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--ral5005); }
+  .cookie-opt label { font-size: 15px; line-height: 1.55; cursor: pointer; }
+  .cookie-opt input:disabled + label { cursor: default; }
+  .cookie-opt b { font-weight: 600; }
+  .cookie-dialog .cookie-links { margin-top: 16px; }
+  .cookie-dialog .cookie-actions { margin-top: 24px; }
+
+  /* Сообщение после отзыва согласия на аналитику */
+  .cookie-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 41;
+    display: flex; align-items: center; gap: 16px; width: max-content; max-width: calc(100vw - 32px);
+    padding: 14px 12px 14px 20px; border-radius: 4px; background: var(--ral5005-dark); color: var(--white);
+    font-size: 15px; line-height: 1.5; box-shadow: 0 8px 24px rgba(0, 40, 70, .25); }
+  .cookie-toast[hidden] { display: none; }
+  .cookie-toast button { flex-shrink: 0; width: 40px; height: 40px; border: 0; background: none; color: inherit;
+    font: inherit; font-size: 24px; line-height: 1; cursor: pointer; }
+
+  /* Планшет и узкий компьютер: кнопки уходят под текст */
+  @media (max-width: 1100px) {
+    .cookie-banner .wrap { flex-direction: column; align-items: stretch; gap: 16px; }
+  }
+
+  /* Телефон: «Принять» и «Отклонить» рядом и одного размера, «Настроить» — строкой ниже */
+  @media (max-width: 640px) {
+    .cookie-banner .wrap { padding-block: 16px; gap: 12px; }
+    .cookie-text { font-size: 14px; line-height: 1.5; }
+    .cookie-links { font-size: 13px; margin-top: 6px; }
+    .cookie-links a { display: inline-block; padding-block: 4px; }
+    .cookie-links .sep { display: none; }
+    .cookie-links a + .sep + a { margin-left: 0; }
+    .cookie-banner .cookie-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cookie-actions .btn { width: 100%; height: auto; min-height: 44px; padding: 8px 10px; white-space: normal; text-align: center; line-height: 1.25; }
+    .cookie-banner .cookie-actions [data-cookie="настроить"] { grid-column: 1 / -1; }
+    .cookie-dialog form { padding: 24px 20px 20px; }
+    .cookie-dialog h2 { font-size: 20px; margin-bottom: 14px; }
+    .cookie-dialog .cookie-actions { flex-direction: column; }
+    .cookie-toast { left: 16px; right: 16px; bottom: 16px; transform: none; width: auto; font-size: 14px; }
+  }
