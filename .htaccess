@@ -1,0 +1,11 @@
+# Переадресации на https://bollfilter.ru (без www).
+# Сайт стоит за прокси RU-CENTER: Apache всегда получает обычный HTTP на порту 80, поэтому признак HTTPS
+# берётся из X-Forwarded-Proto — прокси сам выставляет его и затирает подделку от клиента (проверено 24.09.2026).
+# Технический адрес a210qs.nichost.ru не переадресуется. Путь проверки Let's Encrypt исключён — для продления.
+# Постоянная переадресация 301 (переходы проверены с 302 24.09.2026).
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(www\.)?bollfilter\.ru$ [NC]
+RewriteRule ^ https://bollfilter.ru%{REQUEST_URI} [R=301,L]
